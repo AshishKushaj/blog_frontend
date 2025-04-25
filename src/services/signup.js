@@ -1,8 +1,7 @@
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const signupUser = async (formData) => {
-  const BACKEND_URL = import.meta.env.BACKEND_URL;
   try {
-
     const res = await fetch(`${BACKEND_URL}/signup`, {
       method: "POST",
       headers: {
@@ -11,14 +10,17 @@ export const signupUser = async (formData) => {
       body: JSON.stringify(formData),
     });
 
+    const data = await res.json();
+
     if (!res.ok) {
-      const data = await res.json(); 
       throw new Error(data.message || "Signup failed. Please try again.");
     }
 
-    return res; 
+    return data; 
   } catch (error) {
-    console.log(error)
-    throw new Error(error);
+    console.error(error); 
+    throw new Error(
+      error.message || "An unexpected error occurred during signup."
+    ); 
   }
 };
