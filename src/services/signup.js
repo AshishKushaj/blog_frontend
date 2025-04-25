@@ -3,7 +3,7 @@ export const signupUser = async (formData) => {
   const BACKEND_URL = import.meta.env.BACKEND_URL;
   try {
 
-    const res = await fetch(BACKEND_URL, {
+    const res = await fetch(`${BACKEND_URL}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
